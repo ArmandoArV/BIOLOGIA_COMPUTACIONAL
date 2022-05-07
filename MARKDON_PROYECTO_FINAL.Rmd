@@ -1,0 +1,260 @@
+---
+title: '**COMPARATIVA DE LA ESPÍCULA EN DELTA Y ÓMICRON**'
+date: 05 de Mayo del 2022
+author: Análisis de Biología Computacional
+output:
+  html_notebook:
+    toc: true
+    toc_depth: 6
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
+  pdf_document: default
+---
+***
+### Integrantes:
+<div>
+  <ul>
+    <li>A01424709, Armando Arredondo Valle</li>
+    <li>A01424731, Aldo Olascoaga Olmedo</li>
+    <li>A01423655, Diego Efraín Antonio Pérez</li>
+  </ul>
+
+</div>
+
+<div>
+  <p>
+  <center>
+  ![](FOTOS/LOGO.svg){width=100px}
+  </center>
+  </p>
+</div>
+
+***
+<h2> **Introducción** </h2>
+***
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+En este proyecto, se busca saber así como analizar las variantes de interés Ómicron y Delta, buscando ver si es que cumplen con ciertas características así como un número específico de mutaciones, las cuales afectan de forma directa al organismo del cuerpo humano. 
+
+Tanto Ómicron como Delta son variantes de interés, las cuales estuvieron en su pleno auge en su mayoría durante el año 2021, este año fue uno de los años con mayor tasa de crecimiento de la pandemia así como lo que muchos llaman el punto de quiebre de la misma a finales del mismo año.
+
+  </p>  
+</div>
+
+<div>
+  <p>
+  <center>
+  ![](FOTOS/STRUCTURE.jpg){width=300px}
+  </center>
+  </p>
+</div>
+
+<div>
+<style>
+  p{
+    text-align:justify;
+  }
+</style>
+  <p>
+Cabe recalcar, que para hacer el análisis de de cada una de las variantes, fue necesario realizar la alineación de ambas, esto con base a que ambas variantes tenían diferentes tamaños en su espícula, es por ello que utilizando código (previamente visto en clase), realizamos la alineación de ambas. 
+  </p>
+</div>
+*** 
+<!--Aquí inicia el Objetivo-->
+<h2>**Objetivo**</h2>
+
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+    El objetivo de este proyecto es hacer un análisis parcial de las variantes Ómicron y Delta, para poder así llegar a un posible restultado del porqué es que una es más contagiosa que otra, y por qué una representó un mayor peligro a nivel mundial.
+  </p>
+</div>
+***
+<!--Aquí inicia la parte de la hipótesis-->
+<h2>**Hipótesis**</h2>
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style> 
+  <p>
+Con este proyecto su busca demostrar la estrecha relación que hay entre el número de mutaciones encontradas en la espícula de la variante Ómicron y su formidable capacidad de infección en humanos, además de proporcionar una gran carga viral entre los individuos infectados.
+  </p>
+</div>  
+***
+<!--Aqui iniciamos con el marco teórico-->
+<h2>**Marco teórico**</h2>
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+    <h4>**¿Qué es el virus Sars-Cov2?**</h4>
+    Los coronavirus son una familia de virus que causan enfermedades (desde el resfriado común hasta enfermedades respiratorias más graves) y circulan entre humanos y animales.
+    <h5>**Información de la variante Ómicron**</h5>
+    <ul>
+    <li>Ómicron es de dos a cuatro veces más contagiosa que Delta.</li>
+    <li>Ómicron es más eficiente al evadir anticuerpos proporcionados por las actuales vacunas.</li>
+    <li>Ómicron cuenta con aproximadamente 36 mutaciones en su espícula.</li>
+    <li>Debido a un gran número de mutaciones en el RBD, la variante Ómicron es mucho más transmisible que Delta.</li>
+    <li>Un dominio de unión al receptor (RBD) es una parte clave de un virus ubicado en su dominio de "espícula" que le permite acoplarse a los receptores del cuerpo para ingresar a las células y provocar una infección.</li>
+    </ul>
+    <h5>**Información de la variante Delta**</h5>
+    <ul>
+      <li>La variante Delta fue detectada por primera vez en la India en diciembre de 2020.</li>
+      <li>Se determinó que Delta fue 2 veces más contagiosa que la variante original de Wuhan.</li>
+      <li>La carga viral de Delta era bastante elevada en personas contagiadas con esta variante.</li>
+      <li> Delta fue la variante del SARS-CoV-2 que dominó al mundo hasta finales de 2021. </li>
+      <li>Las mutaciones en el receptor RBD impactaron de manera significativa a la hora de evadir cierta inmunidad por parte de los infectados.</li>
+    </ul>
+  </p>
+</div>
+
+***
+<h2>**Experimentación**</h2>
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+Para poder realizar este proyecto, fue necesario hacer la modificación necesaria a los archivos FASTA. 
+
+Es por ello que hicimos el cambio de ADN a ARN para poder hacer así una mejor comparativa de los datos.
+</p> <br>
+</div>
+
+**Función para realizar la traducción:**
+```{r}
+  # Realizamos aquí la parte de cambiar a mayúsculas las partes de la secuencia
+  A = toupper(Delta[[1]])[1:100] 
+  B = toupper(Omicron[[1]])[1:100]
+  # Función para el cambio a realizar:
+  ADN_to_ARNm = function(nucleotido){
+    return (switch(nucleotido,"C"="G","G"="C","T"="A","A"="U"))
+  }
+  # Ejecutamos la función dentro de A y B
+  A = as.vector(sapply(A, ADN_to_ARNm))
+  B = as.vector(sapply(B, ADN_to_ARNm))
+```
+
+***
+<h5> Análisis de los archivos FASTA </h5>
+
+
+**Análisis de la variante Ómicron después de hacer la alineación**
+
+```{r echo=FALSE}
+  # Variante Ómicron después de la alineación:
+  solA # Variable refiriendo a Ómicron
+```
+***
+**Análisis de la variante Delta después de hacer la alineación**
+```{r echo = FALSE}
+  # Variante Delta después de la alineación:
+  solB# Variable refiriendo a Delta
+```
+
+Dando así una matriz final después de la alineación de este tipo:  
+(_**Contando así como la primer fila para la variante Ómicron, y la segunda para Delta**_)
+
+```{r echo=FALSE}
+  # Ambas variables dentro de una matriz:
+  sol # Variable para la matriz final de Delta y Ómicron.
+```
+Es por ello que fue necesario hacer uso de un algoritmo para poder así realizar la comparativa, utilizando una sentencia de tronctrol para verificar la longitud de las diferencias, así como un ciclo de for para realizar el análisis:
+```{r eval=FALSE}
+if (length(diferentes) > 0){
+  for (k in diferentes){
+    mutation = paste(genOmi[k], "to", genDelta[k], sep="")
+    inicio = k - (k-1) %% 3
+    global = 0+inicio # 21563 valor original
+    index = as.integer(k/3+1)  # %/%
+    codonOmi = paste(genOmi[inicio], genOmi[inicio+1], genOmi[inicio+2],sep="")
+    codonDelta = paste(genDelta[inicio], genDelta[inicio+1], genDelta[inicio+2],sep="")
+    codonChange = paste(codonOmi,global,codonDelta, sep="")
+    aminoChange = paste(trad[codonOmi],index,trad[codonDelta], sep="")
+    print(paste(mutation, global, codonChange, aminoChange, index))
+    newRow = list(mutation, global, codonChange, aminoChange, index)
+    df[nrow(df)+1, ] = newRow
+  }
+}
+```
+***
+<h2>**Resultados**</h2>
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+    Una vez realizados los análisis así como las respectivas comparativas utilizando el algoritmo resultó en un dataframe con exactamente **19** resultados, teniendo así un rango de entre 19 y 36 resultados **posibles**. Es por eso, que realizamos una visualización a forma tabulada de las mutaciones dentro de un dataframe.
+  </p>
+</div>
+
+
+**Resultando en el siguiente dataframe**
+<h3> **Dataframe **</h3>
+
+```{r echo=FALSE}
+  str(df)
+  df
+```
+<h3>**Gráfica**</h3
+
+***
+
+```{r echo=FALSE}
+  p
+```
+
+
+Para tener un mejor análisis, decidimos realizar la graficación de los resultados. En el que podemos ver un número mayor de mutaciones en la parte de AtoU así como en la parte de GtoA, demostrando así las mutaciones del mismo.
+
+<h2> **Conclusión** </h2>
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+    En conclusión, gracias al análisis elaborado en R, se logra apreciar estadísticamente el gran número de mutaciones en el gene “S” del virus SARS-CoV-2, específicamente entre las variantes actuales de interés a nivel mundial: Delta y Ómicron.
+De acuerdo con diversas investigaciones científicas, la variante Ómicron presenta aproximadamente 36 mutaciones en su espícula, pero en este análisis se lograron detectar únicamente 19 de ellas. Esto se puede deber a que las muestras que se tomaron para llevar a cabo este proyecto son recientes y no de finales del año 2021, las cuales respaldan esas más de 3 decenas de mutaciones.
+Aún así, se concluye que la variante Ómicron es mucho más infecciosa que Delta debido a las mutaciones presentes en el receptor RBD, el cual se ubica en la espícula del coronavirus. Éste le permite al virus acoplarse e infectar a las células huéspedes, y es así como Ómicron es mucho más eficiente al evadir la inmunidad actual de los seres humanos contra el SARS-CoV-2.
+  </p>
+</div>  
+***
+<h2> **Referencias** </h2>
+<div>
+  <style>
+    p{
+      text-align:justify;
+    }
+  </style>  
+  <p>
+    <ul>
+    <li> NCBI - WWW Error Blocked Diagnostic. (s. f.). NCBI.NLM.NIH.GOV. Recuperado 1 de mayo de 2022, de https://www.ncbi.nlm.nih.gov/ </li>
+    <li> Global Virus network. (2021, 22 octubre). Delta (B.1.617.2). GVN. Recuperado 1 de mayo de 2022, de https://gvn.org/covid-19/delta-b-1-617-2/ </li>
+    <li> Coronavirus. (2020, 10 enero). WHOINT. Recuperado 1 de mayo de 2022, de https://www.who.int/health-topics/coronavirus#tab=tab_1</li>
+    <li>Katella, K. (2022, 20 abril). Omicron, Delta, Alpha, and More: What To Know About the Coronavirus Variants. Yale Medicine. Recuperado 1 de mayo de 2022, de https://www.yalemedicine.org/news/covid-19-variants-of-concern-omicron</li>
+    <li>Pesheva, B. E. (2022, 3 febrero). Beyond Omicron. Harvard Medical School. Recuperado 1 de mayo de 2022, de https://hms.harvard.edu/news/beyond-omicron</li>
+    </ul>
+  </p>
+</div>  
+
